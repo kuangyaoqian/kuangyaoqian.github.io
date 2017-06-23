@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数论,最大公约数和最小公倍数," />
+  <meta name="keywords" content="数论," />
 
 
 
@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="Problem DescriptionThere is a hill with n holes around. The holes are signed from 0 to n-1.A rabbit must hide in one of the holes.A wolf searches the rabbit in anticlockwise order.The first hole he ge">
+<meta name="description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wolf and rabbit">
-<meta property="og:url" content="http://yoursite.com/2017/03/28/wolf-and-rabbit/index.html">
+<meta property="og:title" content="人见人爱A^B">
+<meta property="og:url" content="http://yoursite.com/2017/03/30/人见人爱A-B/index.html">
 <meta property="og:site_name" content="梦想的博客">
-<meta property="og:description" content="Problem DescriptionThere is a hill with n holes around. The holes are signed from 0 to n-1.A rabbit must hide in one of the holes.A wolf searches the rabbit in anticlockwise order.The first hole he ge">
-<meta property="og:updated_time" content="2017-03-28T13:16:31.816Z">
+<meta property="og:description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
+<meta property="og:updated_time" content="2017-03-30T12:50:41.624Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wolf and rabbit">
-<meta name="twitter:description" content="Problem DescriptionThere is a hill with n holes around. The holes are signed from 0 to n-1.A rabbit must hide in one of the holes.A wolf searches the rabbit in anticlockwise order.The first hole he ge">
+<meta name="twitter:title" content="人见人爱A^B">
+<meta name="twitter:description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/28/wolf-and-rabbit/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/30/人见人爱A-B/"/>
 
 
 
 
 
-  <title> wolf and rabbit | 梦想的博客 </title>
+  <title> 人见人爱A^B | 梦想的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/28/wolf-and-rabbit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/人见人爱A-B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kuangyaoqian">
@@ -280,7 +280,7 @@
             
             
               
-                wolf and rabbit
+                人见人爱A^B
               
             
           </h1>
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T21:07:37+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T20:36:05+08:00">
+                2017-03-30
               </time>
             
 
@@ -353,13 +353,15 @@
       
 
       
-        <h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>There is a hill with n holes around. The holes are signed from 0 to n-1.<br>A rabbit must hide in one of the holes.A wolf searches the rabbit in anticlockwise order.<br>The first hole he get into is the one signed with 0. Then he will get into the hole every m holes.<br>For example, m=2 and n=6, the wolf will get into the holes which are signed 0,2,4,0.<br>If the rabbit hides in the hole which signed 1,3 or 5, she will survive. So we call these holes the safe holes.<br><a id="more"></a></p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The input starts with a positive integer P which indicates the number of test cases.<br>Then on the following P lines,each line consists 2 positive integer m and n(0&lt;m,n&lt;2147483648).</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each input m n, if safe holes exist,<br>you should output “YES”, else output “NO” in a single line.</p>
-<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>2<br>1 2<br>2 2</p>
-<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>NO<br>YES</p>
-<h2 id="翻译："><a href="#翻译：" class="headerlink" title="翻译："></a>翻译：</h2><p>一座山有n个洞，洞被标记为从0到n-1。兔子必须藏在一个洞中。狼会逆时针方向搜索兔子。<br>狼一开始在洞0，然后他会每m个洞进去一次。例如：m=2，n=6，狼就会依次进入洞0 2 4 0。如果兔子藏在1 3 5就安全。<br>求兔子是否有安全的洞</p>
-<h2 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line">int gcd(int a,int b)     //求最大公约数</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(b==0)<span class="built_in">return</span> a;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        int r;</div><div class="line">        <span class="keyword">while</span>(b!=0)    //辗转相除法</div><div class="line">        &#123;</div><div class="line">            r=a%b;</div><div class="line">            a=b;</div><div class="line">            b=r;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> a;     //返回1表示a和b没有公约数，</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int p,n,m;</div><div class="line">    scanf(<span class="string">"%d"</span>,&amp;p);</div><div class="line">    <span class="keyword">while</span>(p--)</div><div class="line">    &#123;</div><div class="line">        scanf(<span class="string">"%d%d"</span>,&amp;m,&amp;n);</div><div class="line">        <span class="keyword">if</span>(gcd(m,n)==1)<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</div><div class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>求A^B的最后三位数表示的整数。<br>说明：A^B的含义是“A的B次方”</p>
+<a id="more"></a>
+<p>Input<br>输入数据包含多个测试实例，每个实例占一行，由两个正整数A和B组成（1&lt;=A,B&lt;=10000），如果A=0, B=0，则表示输入数据的结束，不做处理。</p>
+<p>Output<br>对于每个测试实例，请输出A^B的最后三位表示的整数，每个输出占一行。</p>
+<p>Sample Input<br>2 3<br>12 6<br>6789 10000<br>0 0</p>
+<p>Sample Output<br>8<br>984<br>1</p>
+<p>题目见<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2035" target="_blank" rel="external">hdu2035</a></p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>还好这个题目的A和B都不是很大，而且只要求后面三位就好，所以暴力求解也是可以的，最后三位和前面的无关，就只去最后三位进行相乘就好了</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line">using namespace std;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int i,a,b,result,x;</div><div class="line">    <span class="keyword">while</span>(1)&#123;</div><div class="line">       scanf(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">       <span class="keyword">if</span>(a==0&amp;&amp;b==0)</div><div class="line">          <span class="built_in">break</span>;</div><div class="line">       x=a%1000;</div><div class="line">       result=1;</div><div class="line">       <span class="keyword">for</span>(i=0;i&lt;b;i++)</div><div class="line">       &#123;</div><div class="line">           result=result*x%1000;</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,result);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -390,8 +392,6 @@
           
             <a href="/tags/数论/" rel="tag"># 数论</a>
           
-            <a href="/tags/最大公约数和最小公倍数/" rel="tag"># 最大公约数和最小公倍数</a>
-          
         </div>
       
 
@@ -403,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/28/爬楼梯/" rel="next" title="爬楼梯">
-                <i class="fa fa-chevron-left"></i> 爬楼梯
+              <a href="/2017/03/30/a的b次方/" rel="next" title="a^b">
+                <i class="fa fa-chevron-left"></i> a^b
               </a>
             
           </div>
@@ -413,8 +413,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/30/a的b次方/" rel="prev" title="a^b">
-                a^b <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/30/素数求和问题/" rel="prev" title="素数求和问题">
+                素数求和问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -544,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input"><span class="nav-number">2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-number">3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input"><span class="nav-number">4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output"><span class="nav-number">5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译："><span class="nav-number">6.</span> <span class="nav-text">翻译：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码如下"><span class="nav-number">7.</span> <span class="nav-text">代码如下</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-Description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-number">2.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下："><span class="nav-number">3.</span> <span class="nav-text">代码如下：</span></a></li></ol></div>
             
 
           </div>
