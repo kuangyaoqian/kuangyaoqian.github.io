@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数论," />
+  <meta name="keywords" content="计划," />
 
 
 
@@ -87,16 +87,19 @@
 
 
 
-<meta name="description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
+<meta name="description" content="作为一个acmer，图论真的很重要，不会就头疼了，刚开始学到时候觉得很难，（其实听别人也是这么说的）
+但是后来继续接触以后就觉得也还好，至少要先学会基础的，后面的深入部分才好学。所以决定这个暑假好好学习图论。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人见人爱A^B">
-<meta property="og:url" content="http://yoursite.com/2017/03/30/人见人爱A-B/index.html">
+<meta property="og:title" content="图论学习计划">
+<meta property="og:url" content="http://yoursite.com/2017/06/23/图论学习计划/index.html">
 <meta property="og:site_name" content="梦想的博客">
-<meta property="og:description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
-<meta property="og:updated_time" content="2017-06-24T13:04:36.910Z">
+<meta property="og:description" content="作为一个acmer，图论真的很重要，不会就头疼了，刚开始学到时候觉得很难，（其实听别人也是这么说的）
+但是后来继续接触以后就觉得也还好，至少要先学会基础的，后面的深入部分才好学。所以决定这个暑假好好学习图论。">
+<meta property="og:updated_time" content="2017-06-24T13:02:47.471Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="人见人爱A^B">
-<meta name="twitter:description" content="Problem Description求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”">
+<meta name="twitter:title" content="图论学习计划">
+<meta name="twitter:description" content="作为一个acmer，图论真的很重要，不会就头疼了，刚开始学到时候觉得很难，（其实听别人也是这么说的）
+但是后来继续接触以后就觉得也还好，至少要先学会基础的，后面的深入部分才好学。所以决定这个暑假好好学习图论。">
 
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/30/人见人爱A-B/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/23/图论学习计划/"/>
 
 
 
 
 
-  <title> 人见人爱A^B | 梦想的博客 </title>
+  <title> 图论学习计划 | 梦想的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/人见人爱A-B/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/图论学习计划/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kuangyaoqian">
@@ -280,7 +283,7 @@
             
             
               
-                人见人爱A^B
+                图论学习计划
               
             
           </h1>
@@ -295,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T20:36:05+08:00">
-                2017-03-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-23T16:23:15+08:00">
+                2017-06-23
               </time>
             
 
@@ -329,8 +332,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/数论/" itemprop="url" rel="index">
-                    <span itemprop="name">数论</span>
+                  <a href="/categories/acm/图论/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
                   </a>
                 </span>
 
@@ -364,15 +367,29 @@
       
 
       
-        <h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>求A^B的最后三位数表示的整数。<br>说明：A^B的含义是“A的B次方”</p>
-<a id="more"></a>
-<p>Input<br>输入数据包含多个测试实例，每个实例占一行，由两个正整数A和B组成（1&lt;=A,B&lt;=10000），如果A=0, B=0，则表示输入数据的结束，不做处理。</p>
-<p>Output<br>对于每个测试实例，请输出A^B的最后三位表示的整数，每个输出占一行。</p>
-<p>Sample Input<br>2 3<br>12 6<br>6789 10000<br>0 0</p>
-<p>Sample Output<br>8<br>984<br>1</p>
-<p>题目见<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2035" target="_blank" rel="external">hdu2035</a></p>
-<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>还好这个题目的A和B都不是很大，而且只要求后面三位就好，所以暴力求解也是可以的，最后三位和前面的无关，就只去最后三位进行相乘就好了</p>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line">using namespace std;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int i,a,b,result,x;</div><div class="line">    <span class="keyword">while</span>(1)&#123;</div><div class="line">       scanf(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">       <span class="keyword">if</span>(a==0&amp;&amp;b==0)</div><div class="line">          <span class="built_in">break</span>;</div><div class="line">       x=a%1000;</div><div class="line">       result=1;</div><div class="line">       <span class="keyword">for</span>(i=0;i&lt;b;i++)</div><div class="line">       &#123;</div><div class="line">           result=result*x%1000;</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,result);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <pre><code>作为一个acmer，图论真的很重要，不会就头疼了，刚开始学到时候觉得很难，（其实听别人也是这么说的）
+</code></pre><p>但是后来继续接触以后就觉得也还好，至少要先学会基础的，后面的深入部分才好学。所以决定这个暑假好好学习图论。<br><a id="more"></a><br>    图论里常用的有图的遍历、拓扑排序、最小生成树、线段树、最短路径、连通性问题、网络流和二分图等，大致的<br>知识点就这些了。其中有一些是接触过的，有一些是不太熟悉的，这些都太常见了，所以要做到全部都会，争取随手都<br>写的出来。每个算法要仔细研究2-3天，刷题的时候要专门把这一类题目都刷完。刷完以后就要写心得和总结，另外把它<br>写成模板整理出来，这里我认为<a href="http://www.cnblogs.com/kuangbin/" target="_blank" rel="external">kuangbin - 博客园</a>写的还是不错的。以此为目标，<br>好好加油！<br>    先找了一些oj的题目分类，特地的抽取了图论部分。<br>    最短路（Dijkstra、SPFA、Floyed）：ZOJ1298 ZOJ1333 ZOJ1456 ZOJ1589 ZOJ1721 ZOJ1942 ZOJ1952<br>    SOJ1697 SOJ2325 SOJ2427 SOJ2468 SOJ2751 SOJ2932 SOJ316 SOJ3335 SOJ33463 SOJ3423<br>    hdu 1142 1162 1217 1301<br>    poj1860 poj3259 poj1062 poj2253 poj1125 poj2240<br>    Foj  2243 2173</p>
+<pre><code>网络流（最大流、网络流）
+POJ1087 POJ1273 POJ1698 POJ1815 POJ2195 poj1459  poj3436
+ZOJ1734 ZOJ1992 ZOJ2314
+SOJ2414 SOJ2835 SOJ3312 SOJ3353 SOJ2662 SOJ3106 SOJ3109 SOJ3107 SOJ3185 SOJ3254 SOJ3134 
+SOJ3186 SOJ2927 SOJ3634
+hdu1532、hdu3549、hdu2732、hdu3572、hdu4309、hdu3605、hdu2883、hdu3879、hdu3667
+
+二分图（二分图的最大匹配、最佳匹配、二分图模型）
+POJ1274 POJ1422 POJ1469 POJ1719 POJ2060 POJ2239  poj3041 poj3020
+ZOJ1002 ZOJ1059 ZOJ1077 ZOJ1137 ZOJ1140 ZOJ1157 ZOJ1197 ZOJ1231 ZOJ1364 ZOJ1516 ZOJ1525 ZOJ1576 
+ZOJ1626 ZOJ1654 ZOJ1882 ZOJ2067 ZOJ2192 ZOJ2221 ZOJ2223 ZOJ2333 ZOJ2362 ZOJ2404
+图论-最大匹配:
+SOJ1183 SOJ1186 SOJ2035 SOJ2077 SOJ216 SOJ2342 SOJ2472 SOJ2681 SOJ2737 SOJ2764 SOJ2806 SOJ2958 
+SOJ3043 SOJ3038 SOJ3453 SOJ1981
+hdu 1829  3729 4751 2063 2444 2819  1553  2225
+FOJ1029 FOJ1115 FOJ1202 FOJ1341 FOJ1397 FOJ1467 FOJ1508
+
+
+暂时只找了这些，但是还会继续搜的，另附上[PythonTip](http://www.pythontip.com/acm/problemCategory)的
+</code></pre><p>题目分类，很详尽。看来这个暑假是有的快活了！看到那么多要学习的，瞬间觉得大一、大二不该打酱油的。趁着现在<br>还来的急要好好干！    </p>
+
       
     </div>
 
@@ -401,7 +418,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数论/" rel="tag"># 数论</a>
+            <a href="/tags/计划/" rel="tag"># 计划</a>
           
         </div>
       
@@ -414,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/30/a的b次方/" rel="next" title="a^b">
-                <i class="fa fa-chevron-left"></i> a^b
+              <a href="/2017/03/30/素数求和问题/" rel="next" title="素数求和问题">
+                <i class="fa fa-chevron-left"></i> 素数求和问题
               </a>
             
           </div>
@@ -423,10 +440,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/30/素数求和问题/" rel="prev" title="素数求和问题">
-                素数求和问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -473,17 +486,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg"
@@ -545,22 +549,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-Description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-number">2.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下："><span class="nav-number">3.</span> <span class="nav-text">代码如下：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
