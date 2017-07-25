@@ -1,0 +1,744 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="图论,最短路径,SPFA算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="算法简介SPFA算法全称是Shortest Path Faster Algorithm，也是用来求最短路径的一种算法，主要是用来解带有负边的最短路问题，还有用的比较多的是判断负环，是在bellman-ford算法的基础上加上一个对列优化，从而减少了冗余的松弛操作，提高了算法的效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最短路径之SPFA算法">
+<meta property="og:url" content="http://yoursite.com/2017/07/24/最短路径之SPFA算法/index.html">
+<meta property="og:site_name" content="梦想的博客">
+<meta property="og:description" content="算法简介SPFA算法全称是Shortest Path Faster Algorithm，也是用来求最短路径的一种算法，主要是用来解带有负边的最短路问题，还有用的比较多的是判断负环，是在bellman-ford算法的基础上加上一个对列优化，从而减少了冗余的松弛操作，提高了算法的效率。">
+<meta property="og:updated_time" content="2017-07-24T12:22:33.893Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最短路径之SPFA算法">
+<meta name="twitter:description" content="算法简介SPFA算法全称是Shortest Path Faster Algorithm，也是用来求最短路径的一种算法，主要是用来解带有负边的最短路问题，还有用的比较多的是判断负环，是在bellman-ford算法的基础上加上一个对列优化，从而减少了冗余的松弛操作，提高了算法的效率。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/24/最短路径之SPFA算法/"/>
+
+
+
+
+
+  <title> 最短路径之SPFA算法 | 梦想的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梦想的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪怕每天只有一点的进步都值得去为之努力</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/最短路径之SPFA算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuangyaoqian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦想的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                最短路径之SPFA算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T19:25:22+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/最短路/" itemprop="url" rel="index">
+                    <span itemprop="name">最短路</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h3><p>SPFA算法全称是Shortest Path Faster Algorithm，也是用来求最短路径的一种算法，主要是用来解带有负边的最短路问题，还有用的比较多的是判断负环，是在bellman-ford算法的基础上加上一个对列优化，从而减少了冗余的松弛操作，提高了算法的效率。<br><a id="more"></a><br>SPFA算法的历史来源什么的我就不说了，百度上都有的。<br>它的主要实现是利用队列来实现的，设立一个先进先出的队列用来保存待优化的结点，优化时每次取出队首结点u，并且用u点当前的最短路径估计值对离开u点所指向的结点v进行松弛操作如果v点的最短路径估计值有所调整，且v点不在当前的队列中，就将v点放入队尾。这样不断从队列中取出结点来进行松弛操作，至队列空为止。<br>期望的时间复杂度O(ke)， 其中k为所有顶点进队的平均次数，可以证明k一般小于等于2。<br>判断有无负环：<br>如果某个点进入队列的次数超过N次则存在负环（SPFA无法处理带负环的图）。</p>
+<p>从上面的算法很容易看出来，它其实就是广搜的变形版，没错几乎就是一模一样，但是有点不同是，广搜每个点只能入队一次，但是SPFA的点可以入队多次，也就是说，每次出队的点都要回复它原来的标记，如果满足入队条件（能够再被更新）就入队，否则它不会入队，所以说如果一个图里存在负环，那么就会出现一直在队列里循环的点，这是不可以的，所以不能处理带有负环的图。<br>但是我们却可以用这个特点来判断图里是否有负环，当一个点入队的次数都超过了n次以后，那么说明它在队列里一直在循环着一个负环，可以退出来，也可以做个标记。这也就是说，当出现这种情况的时候是最坏情况，它的时间复杂度就是O(VE)，但是如果是在不带负环的图里，它的时间复杂度还是可以维持在平均O(ke)的。<br>所以和Dijkstra、bellman-ford算法比起来，效率还是算高的。Dijkstra算法的时间复杂度是O(n^2),bellman-ford算法的时间复杂度是O(ve)(v是点数，e是边数)。</p>
+<h3 id="算法模板"><a href="#算法模板" class="headerlink" title="算法模板"></a>算法模板</h3><p>以hdu2544为例（虽然用Dijkstra算法也可以做，但这里只是展示spfa的模板）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;queue&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int maxn=120;</div><div class="line">const int maxm=10010;</div><div class="line">const int INF=0x3f3f3f3f;</div><div class="line">int dis[maxn],head[maxn];</div><div class="line">int visted[maxn],countt[maxn];</div><div class="line">int n,m,k;</div><div class="line">struct Edge&#123;                //链式前向星存储</div><div class="line">    int nxet,to,cost;</div><div class="line">&#125;edge[maxm];</div><div class="line"> </div><div class="line">void add(int from,int to,int cost)      //加边</div><div class="line">&#123; </div><div class="line">    edge[k].to=to; </div><div class="line">	edge[k].cost=cost; </div><div class="line">	edge[k].nxet=head[from]; </div><div class="line">	head[from]=k++;</div><div class="line">&#125; </div><div class="line">int SPFA(int s)&#123;          //spfa算法</div><div class="line">    <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123; </div><div class="line">	   dis[i]=INF;</div><div class="line">    &#125; </div><div class="line">	dis[s]=0; </div><div class="line">	queue &lt;int &gt; q; </div><div class="line">	q.push(s); </div><div class="line">	visted[s]=1; </div><div class="line">	countt[s]=1;</div><div class="line">    <span class="keyword">while</span>(!q.empty())&#123;</div><div class="line">        int cur=q.front(); </div><div class="line">		q.pop(); </div><div class="line">		visted[cur]=0;            //恢复标记</div><div class="line">        <span class="keyword">if</span>(countt[cur]&gt;n)          //当入队次数超过n时，结束算法</div><div class="line">            <span class="built_in">return</span> -1;</div><div class="line">        <span class="keyword">for</span>(int i=head[cur];i!=0;i=edge[i].nxet)</div><div class="line">            <span class="keyword">if</span>(dis[edge[i].to]&gt;dis[cur]+edge[i].cost)&#123; </div><div class="line">			     dis[edge[i].to]=dis[cur]+edge[i].cost;</div><div class="line">                <span class="keyword">if</span>(!visted[edge[i].to])&#123;  </div><div class="line">				     visted[edge[i].to]=1;     //设置标记</div><div class="line">					 countt[edge[i].to]++;      //记录每个点入队了多少次</div><div class="line">					 q.push(edge[i].to);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 1;</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span>(cin&gt;&gt;n&gt;&gt;m&amp;&amp;n!=0)&#123; k=1;      //起点从1开始</div><div class="line">        int a,b,c; </div><div class="line">		memset(visted,0,sizeof(visted));       //初始化</div><div class="line">		memset(head,0,sizeof(head));</div><div class="line">		memset(countt,0,sizeof(countt));</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123; </div><div class="line">		     cin&gt;&gt;a&gt;&gt;b&gt;&gt;c; </div><div class="line">			 add(a,b,c); </div><div class="line">			 add(b,a,c);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(SPFA(1)) </div><div class="line">		   cout&lt;&lt;dis[n]&lt;&lt;endl;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>以poj的3259题为例。<br>题目大意是：利用虫洞的时光旅行，若能回到过去，则输出”YES”,否则”NO”。给定F(1&lt;=F&lt;=5)组数据，对应与一个farm，每组数据对应一个结果。<br>对于其中一组数据，给定 N , M , W ，N为点数，M为无向边数(普通路径，通过之后时间前进)，W为有向边数(虫洞，通过虫洞之后时间倒退)，时间倒退就是时间为负数，如果最后返回到他最初开始走的地方并且时间要在他离开之前（即从1点出发，能回到1点并且时间是负数），那么就输出“YES”，否则输出“NO”。</p>
+<p>分析：与负数的边，那么肯定不能用Dijkstra算法，要用spfa或者 BellmanFord算法，我习惯用spfa算法，直接上模板，然后判断dist[1]的值是否是负数，是的话就返回-1（输出“YES”），否则返回1（输出“NO”）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;queue&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=30000;        //不知道为什么5000的数组都不够，我只好开了个30000</div><div class="line">const int inf=0x3f3f3f3f;    //除了数组这个小错误，其他的很好，一次过</div><div class="line">int dist[M],head[M];</div><div class="line">bool vis[M];</div><div class="line">int k,n,m,w;</div><div class="line">struct node</div><div class="line">&#123;</div><div class="line">    int to,w,next;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">node Map[M];</div><div class="line"></div><div class="line">void add(int a,int b,int c)</div><div class="line">&#123;</div><div class="line">    Map[k].to=b;</div><div class="line">    Map[k].w=c;</div><div class="line">    Map[k].next=head[a];</div><div class="line">    head[a]=k++;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int spfa(int start)</div><div class="line">&#123;</div><div class="line">    queue&lt;int&gt; q;</div><div class="line">    q.push(start);</div><div class="line">    vis[start]=<span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(int i=1;i&lt;=n;i++)</div><div class="line">        dist[i]=inf;</div><div class="line">    dist[start]=0;</div><div class="line">    <span class="keyword">while</span>(!q.empty())&#123;</div><div class="line">        int now=q.front();</div><div class="line">        q.pop();</div><div class="line">        vis[now]=<span class="literal">false</span>;</div><div class="line">        <span class="keyword">if</span>(dist[1]&lt;0)</div><div class="line">            <span class="built_in">return</span> -1;</div><div class="line">        <span class="keyword">for</span>(int i=head[now];i!=0;i=Map[i].next)</div><div class="line">            <span class="keyword">if</span>(dist[now]+Map[i].w&lt;dist[Map[i].to])&#123;</div><div class="line">               dist[Map[i].to]=dist[now]+Map[i].w;</div><div class="line">               <span class="keyword">if</span>(!vis[Map[i].to])&#123;</div><div class="line">                  vis[Map[i].to]=<span class="literal">true</span>;</div><div class="line">                  q.push(Map[i].to);</div><div class="line">               &#125;</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int T,a,b,c;</div><div class="line">    scanf(<span class="string">"%d"</span>,&amp;T);</div><div class="line">    <span class="keyword">while</span>(T--)&#123;</div><div class="line">        memset(vis,<span class="literal">false</span>,sizeof(vis));</div><div class="line">        memset(head,0,sizeof(head));</div><div class="line">        memset(Map,0,sizeof(Map));</div><div class="line">        scanf(<span class="string">"%d%d%d"</span>,&amp;n,&amp;m,&amp;w);</div><div class="line">        k=1;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d%d"</span>,&amp;a,&amp;b,&amp;c);</div><div class="line">            add(a,b,c);</div><div class="line">            add(b,a,c);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=w;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d%d"</span>,&amp;a,&amp;b,&amp;c);</div><div class="line">            add(a,b,-c);</div><div class="line">        &#125;</div><div class="line">        int flag=spfa(1);</div><div class="line">        <span class="keyword">if</span>(flag==-1)</div><div class="line">            cout&lt;&lt;<span class="string">"YES"</span>&lt;&lt;endl;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cout&lt;&lt;<span class="string">"NO"</span>&lt;&lt;endl;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里写一下我个人对负环的一点认识，负环指不一定是一个图的环里的边权都是负值，还有就是一个环里所有的边权之和为负数，也叫做负环。<br>转载请注明出处。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+            <a href="/tags/最短路径/" rel="tag"># 最短路径</a>
+          
+            <a href="/tags/SPFA算法/" rel="tag"># SPFA算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/14/最短路径之Dijkstra算法/" rel="next" title="最短路径之Dijkstra算法">
+                <i class="fa fa-chevron-left"></i> 最短路径之Dijkstra算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/最短路练习（一）/" rel="prev" title="最短路练习题(一)">
+                最短路练习题(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg"
+               alt="kuangyaoqian" />
+          <p class="site-author-name" itemprop="name">kuangyaoqian</p>
+           
+              <p class="site-description motion-element" itemprop="description">哪怕每天只有一点的进步都值得去为之努力</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法简介"><span class="nav-number">1.</span> <span class="nav-text">算法简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法模板"><span class="nav-number">2.</span> <span class="nav-text">算法模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuangyaoqian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
