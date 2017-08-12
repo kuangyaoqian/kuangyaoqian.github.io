@@ -1,0 +1,749 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="图论,最短路,强连通分量,练习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="写完了模板就该来写写题目了，不然光写模板多没有意思。一起来看看我们曾经踩过的强连通分量的坑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强连通分量练习">
+<meta property="og:url" content="http://yoursite.com/2017/08/12/强连通分量练习/index.html">
+<meta property="og:site_name" content="梦想的博客">
+<meta property="og:description" content="写完了模板就该来写写题目了，不然光写模板多没有意思。一起来看看我们曾经踩过的强连通分量的坑。">
+<meta property="og:updated_time" content="2017-08-12T03:34:32.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强连通分量练习">
+<meta name="twitter:description" content="写完了模板就该来写写题目了，不然光写模板多没有意思。一起来看看我们曾经踩过的强连通分量的坑。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/12/强连通分量练习/"/>
+
+
+
+
+
+  <title> 强连通分量练习 | 梦想的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梦想的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪怕每天只有一点的进步都值得去为之努力</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/强连通分量练习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuangyaoqian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦想的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                强连通分量练习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T10:51:31+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/强连通分量/" itemprop="url" rel="index">
+                    <span itemprop="name">强连通分量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>写完了模板就该来写写题目了，不然光写模板多没有意思。一起来看看我们曾经踩过的强连通分量的坑。<br><a id="more"></a><br>强连通分量一般都伴随着缩点的操作，要你只求强连通分量是没有难度的。当然人家也不可能会告诉你这个题目用强连通分量来解<br>最典型的入门还是hdu1269题了，只要求出强连通分量的数目然后进行判断就好了；</p>
+<h3 id="hdu2767（强连通分量-缩点）"><a href="#hdu2767（强连通分量-缩点）" class="headerlink" title="hdu2767（强连通分量+缩点）"></a>hdu2767（强连通分量+缩点）</h3><p>题目很长的一段英文，但是就是一个意思，要你求至少要给一个有向图加多少条边才能使他变成一个强连通图。<br>如果是第一次做这种题，肯定懵逼了，没错，我也是的！但是做多了以后发现真的好简单啊！它的套路就是把一个有向图的所有强连通分量先求出来，然后再把强连通分量缩点，求出缩点后的图的入度为0的点数和出度为0的点数，谁大就是答案（为什么呢？因为我是老大啊！）<br>我觉得应该这样理解，要把出度为0和入度为0的点都连接起来就可以变成一个强连通图了，那就是看谁的点多了，因为n个点组成一个强连通图至少需要n条边（一个环）。然后就会发现这个缩点求入度和出度的过程也是非常的精妙。另外还要注意的是当给出的有向图就是强连通分量时，那就不用加边，结果应该输出0，看代码就知道了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;stack&gt;</span></div><div class="line"><span class="comment">#include&lt;algorithm&gt;</span></div><div class="line"><span class="comment">#include&lt;vector&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=60000;</div><div class="line">vector&lt;int&gt; G[M];</div><div class="line">int dfn[M],index,num,scc[M];</div><div class="line">int <span class="keyword">in</span>[M],out[M];</div><div class="line">stack&lt;int&gt; st1,st2;</div><div class="line">void Gabow(int u)</div><div class="line">&#123;</div><div class="line">    int v;</div><div class="line">    st1.push(u);</div><div class="line">    st2.push(u);</div><div class="line">    dfn[u]=++index;</div><div class="line">    <span class="keyword">for</span>(int i=0;i&lt;G[u].size();i++)&#123;</div><div class="line">        v=G[u][i];</div><div class="line">        <span class="keyword">if</span>(!dfn[v])</div><div class="line">            Gabow(v);</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!scc[v])</div><div class="line">            <span class="keyword">while</span>(dfn[v]&lt;dfn[st2.top()])</div><div class="line">                st2.pop();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(u==st2.top())&#123;</div><div class="line">        num++;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            v=st1.top();</div><div class="line">            scc[v]=num;</div><div class="line">            st1.pop();</div><div class="line">        &#125;<span class="keyword">while</span>(v!=st2.top());</div><div class="line">        st2.pop();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int T,n,m,x,y;</div><div class="line">    scanf(<span class="string">"%d"</span>,&amp;T);</div><div class="line">    <span class="keyword">while</span>(T--)&#123;</div><div class="line">        scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</div><div class="line">            G[x].push_back(y);</div><div class="line">        &#125;</div><div class="line">        memset(dfn,0,sizeof(dfn));</div><div class="line">        memset(scc,0,sizeof(scc));</div><div class="line">        index=num=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;  //求所有的强连通分量</div><div class="line">            <span class="keyword">if</span>(!dfn[i])</div><div class="line">                Gabow(i);</div><div class="line">        &#125;</div><div class="line">        memset(<span class="keyword">in</span>,0,sizeof(<span class="keyword">in</span>));</div><div class="line">        memset(out,0,sizeof(out));</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;            //缩点求入度和出度</div><div class="line">            <span class="keyword">for</span>(int j=0;j&lt;G[i].size();j++)&#123;</div><div class="line">                int v=G[i][j];</div><div class="line">                <span class="keyword">if</span>(scc[i]!=scc[v])&#123;</div><div class="line">                    out[scc[i]]++;</div><div class="line">                    <span class="keyword">in</span>[scc[v]]++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        int ans1=0,ans2=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=num;i++)&#123;    //计算入度和出度为0的点数</div><div class="line">            <span class="keyword">if</span>(out[i]==0)</div><div class="line">                ans2++;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">in</span>[i]==0)</div><div class="line">                ans1++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(num==1)        //特殊情况</div><div class="line">            cout&lt;&lt;0&lt;&lt;endl;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cout&lt;&lt;max(ans1,ans2)&lt;&lt;endl;    //输出大的那个值</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;M;i++)</div><div class="line">            G[i].clear();</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类似的题还有poj1236，poj2186</p>
+<h3 id="hdu1827（强连通分量-缩点-权值更新）"><a href="#hdu1827（强连通分量-缩点-权值更新）" class="headerlink" title="hdu1827（强连通分量+缩点+权值更新）"></a>hdu1827（强连通分量+缩点+权值更新）</h3><p>听说lcy帮大家预定了新马泰7日游，Wiskey真是高兴的夜不能寐啊，他想着得快点把这消息告诉大家，虽然他手上有所有人的联系方式，但是一个一个联系过去实在太耗时间和电话费了。他知道其他人也有一些别人的联系方式，这样他可以通知其他人，再让其他人帮忙通知一下别人。你能帮Wiskey计算出至少要通知多少人，至少得花多少电话费就能让所有人都被通知到吗？</p>
+<p>Input<br>多组测试数组，以EOF结束。第一行两个整数N和M（1&lt;=N&lt;=1000, 1&lt;=M&lt;=2000），表示人数和联系对数。接下一行有N个整数，表示Wiskey联系第i个人的电话费用。接着有M行，每行有两个整数X，Y，表示X能联系到Y，但是不表示Y也能联系X。</p>
+<p>Output<br>输出最小联系人数和最小花费。每个CASE输出答案一行。</p>
+<p>Sample Input<br>12 16<br>2 2 2 2 2 2 2 2 2 2 2 2<br>1 3<br>3 2<br>2 1<br>3 4<br>2 4<br>3 5<br>5 4<br>4 6<br>6 4<br>7 4<br>7 12<br>7 8<br>8 7<br>8 9<br>10 9<br>11 10</p>
+<p>Sample Output<br>3 6</p>
+<p>太久没有见过中文题了好激动的感觉（^~^）,果然会做题的前提是这个题目是中文题，1A水过，就是一个简单的求至少有多少个点可以到其他所有的点，缩点后求有多少个入度为0的点就好了，然后就是用一个mincost数组更新每个强连通分量里的最小花费。<br>代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;stack&gt;</span></div><div class="line"><span class="comment">#include&lt;vector&gt;</span></div><div class="line"><span class="comment">#include&lt;algorithm&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=20000;</div><div class="line">int index,num,low[M],dfn[M],scc[M];</div><div class="line">bool instack[M];</div><div class="line">int <span class="keyword">in</span>[M],cost[M],mincost[M]; //mincost[]表示每个强连通分量的最小花费</div><div class="line">vector&lt;int&gt; G[M];</div><div class="line">stack&lt;int&gt; s;</div><div class="line">void tarjan(int u)</div><div class="line">&#123;</div><div class="line">    int v;</div><div class="line">    s.push(u);</div><div class="line">    low[u]=dfn[u]=++index;</div><div class="line">    instack[u]=<span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(int i=0;i&lt;G[u].size();i++)&#123;</div><div class="line">        v=G[u][i];</div><div class="line">        <span class="keyword">if</span>(!dfn[v])&#123;</div><div class="line">            tarjan(v);</div><div class="line">            low[u]=min(low[v],low[u]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(instack[v])</div><div class="line">            low[u]=min(low[u],dfn[v]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(dfn[u]==low[u])&#123;</div><div class="line">        num++;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            v=s.top();</div><div class="line">            scc[v]=num;</div><div class="line">            mincost[num]=min(cost[v],mincost[num]);   //更新每个强连通分量里的最小花费</div><div class="line">            s.pop();</div><div class="line">            instack[v]=<span class="literal">false</span>;</div><div class="line">        &#125;<span class="keyword">while</span>(v!=u);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int n,m,x,y;</div><div class="line">    <span class="keyword">while</span>(~scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m))&#123;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)</div><div class="line">            scanf(<span class="string">"%d"</span>,&amp;cost[i]);</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</div><div class="line">            G[x].push_back(y);</div><div class="line">        &#125;</div><div class="line">        memset(scc,0,sizeof(scc));</div><div class="line">        memset(low,0,sizeof(low));</div><div class="line">        memset(instack,<span class="literal">false</span>,sizeof(instack));</div><div class="line">        memset(dfn,0,sizeof(dfn));</div><div class="line">        memset(mincost,0x3f3f3f3f,sizeof(mincost));  </div><div class="line">        index=num=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)</div><div class="line">            <span class="keyword">if</span>(!dfn[i])</div><div class="line">              tarjan(i);</div><div class="line">        memset(<span class="keyword">in</span>,0,sizeof(<span class="keyword">in</span>));</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j=0;j&lt;G[i].size();j++)&#123;</div><div class="line">                int v=G[i][j];</div><div class="line">                <span class="keyword">if</span>(scc[i]!=scc[v])&#123;</div><div class="line">                    <span class="keyword">in</span>[scc[v]]++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        int ans1=0,ans2=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=num;i++)&#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">in</span>[i]==0)&#123;</div><div class="line">                ans1++;    //入度为0的点数</div><div class="line">                ans2=ans2+mincost[i]; //求出最后的结果 </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        cout&lt;&lt;ans1&lt;&lt;<span class="string">" "</span>&lt;&lt;ans2&lt;&lt;endl;</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;M;i++)</div><div class="line">            G[i].clear();</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类似的题还有hdu3072。</p>
+<h3 id="hdu3639-（强连通分量-缩点-逆向思维）"><a href="#hdu3639-（强连通分量-缩点-逆向思维）" class="headerlink" title="hdu3639 （强连通分量+缩点+逆向思维）"></a>hdu3639 （强连通分量+缩点+逆向思维）</h3><p>这题的意思是：幼儿园的小朋友要玩老鹰抓小鸡，但是很多小朋友的想要当老鹰，所有老师就给了他们一块手帕用来投票，觉得谁适合当老鹰就把票投个谁，并且投票具有传递性，比如A把票投给了B，B把票投给了C，而C就有了两票，不能自己投自己。最后要你求出能得到的最多的票是多少，拥有最多的票数的编号是哪些，编号从0开始。<br>这个题有点像前面我做的那个牛与牛的受欢迎的问题，其实意思就是问你到达点i的点数最多是多少，这样的点可能不止一个，那就都要输出来。还是用到强连通分量来做，先求出所有的强连通分量，因为一个强连通分量里的点是可以互相到达的，意思是这个强连通分量里的点的拥有的票数是一样的，都是n-1（n是分量里的点数），然后在缩点，缩点后会发现具有最多票数的是出度为0的点，但是要统计出度为0的点有多少个点可以到达这个点并不好做，所以就需要把图反一下，这样就是求入度为0的点最多可以到多少个点了，只要把入度为0的点dfs一遍就好了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stack&gt;</span></div><div class="line"><span class="comment">#include&lt;vector&gt;</span></div><div class="line"><span class="comment">#include&lt;algorithm&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=50000;</div><div class="line">vector&lt;int&gt; G[M],g[M];</div><div class="line">int dfn[M],scc[M],index,num,sum[M];</div><div class="line">int <span class="keyword">in</span>[M],res,ans[M];</div><div class="line">bool vis[M];</div><div class="line">stack&lt;int&gt; st1,st2;</div><div class="line">void Gabow(int u)</div><div class="line">&#123;</div><div class="line">    int v;</div><div class="line">    st1.push(u);</div><div class="line">    st2.push(u);</div><div class="line">    dfn[u]=++index;</div><div class="line">    <span class="keyword">for</span>(int i=0;i&lt;G[u].size();i++)&#123;</div><div class="line">        v=G[u][i];</div><div class="line">        <span class="keyword">if</span>(!dfn[v])</div><div class="line">          Gabow(v);</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!scc[v])</div><div class="line">            <span class="keyword">while</span>(dfn[v]&lt;dfn[st2.top()])</div><div class="line">              st2.pop();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(st2.top()==u)&#123;</div><div class="line">        num++;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            v=st1.top();</div><div class="line">            scc[v]=num;</div><div class="line">            sum[num]++;</div><div class="line">            st1.pop();</div><div class="line">        &#125;<span class="keyword">while</span>(v!=st2.top());</div><div class="line">        st2.pop();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">void dfs(int u)</div><div class="line">&#123;</div><div class="line">    vis[u]=<span class="literal">true</span>;</div><div class="line">    res+=sum[u];</div><div class="line">    <span class="keyword">for</span>(int i=0;i&lt;g[u].size();i++)</div><div class="line">        <span class="keyword">if</span>(!vis[g[u][i]])</div><div class="line">          dfs(g[u][i]);</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int T,n,m,a,b,cas=0;</div><div class="line">    scanf(<span class="string">"%d"</span>,&amp;T);</div><div class="line">    <span class="keyword">while</span>(T--)&#123;</div><div class="line">        scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">            G[a].push_back(b);</div><div class="line">        &#125;</div><div class="line">        memset(dfn,0,sizeof(dfn));</div><div class="line">        memset(scc,0,sizeof(scc));</div><div class="line">        memset(sum,0,sizeof(sum));</div><div class="line">        index=num=0;</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;n;i++)</div><div class="line">            <span class="keyword">if</span>(!dfn[i])</div><div class="line">            Gabow(i);</div><div class="line">        memset(<span class="keyword">in</span>,0,sizeof(<span class="keyword">in</span>));</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j=0;j&lt;G[i].size();j++)&#123;</div><div class="line">                int v=G[i][j];</div><div class="line">                <span class="keyword">if</span>(scc[v]!=scc[i])&#123;</div><div class="line">                    g[scc[v]].push_back(scc[i]);//g是缩点后的反图</div><div class="line">                    <span class="keyword">in</span>[scc[i]]++;      //统计入度</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        int maxx=-1;</div><div class="line">        memset(ans,0,sizeof(ans));</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=num;i++)&#123;//扫描num个点，dfs求出入度为0的点最多能到多少个点</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">in</span>[i]==0)&#123;     //缩点后的图是从1开始的</div><div class="line">                res=0;</div><div class="line">                memset(vis,<span class="literal">false</span>,sizeof(vis));</div><div class="line">                dfs(i);     //ans[i]表示第i个点得到的票数是多少</div><div class="line">                ans[i]=res-1;  //因为不能算上本身这个点，所以要减一（自己不能投自己）</div><div class="line">                maxx=max(maxx,res-1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Case %d: %d\n"</span>,++cas,maxx);</div><div class="line">        int flag=0;</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;  //扫描n个点，求出ans值等于maxx的点输出</div><div class="line">            <span class="keyword">if</span>(ans[scc[i]]==maxx)&#123;</div><div class="line">                <span class="keyword">if</span>(!flag)&#123;</div><div class="line">                    cout&lt;&lt;i; //输出第一个点</div><div class="line">                    flag=1;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    cout&lt;&lt;<span class="string">" "</span>&lt;&lt;i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        cout&lt;&lt;endl;</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;M;i++)&#123;//清零</div><div class="line">            G[i].clear();</div><div class="line">            g[i].clear();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类似的题hdu4635这是一个好题，值得一做</p>
+<p>转载请注明出处！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+            <a href="/tags/最短路/" rel="tag"># 最短路</a>
+          
+            <a href="/tags/强连通分量/" rel="tag"># 强连通分量</a>
+          
+            <a href="/tags/练习/" rel="tag"># 练习</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/12/强连通分量总结/" rel="next" title="强连通分量总结">
+                <i class="fa fa-chevron-left"></i> 强连通分量总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg"
+               alt="kuangyaoqian" />
+          <p class="site-author-name" itemprop="name">kuangyaoqian</p>
+           
+              <p class="site-description motion-element" itemprop="description">哪怕每天只有一点的进步都值得去为之努力</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hdu2767（强连通分量-缩点）"><span class="nav-number">1.</span> <span class="nav-text">hdu2767（强连通分量+缩点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hdu1827（强连通分量-缩点-权值更新）"><span class="nav-number">2.</span> <span class="nav-text">hdu1827（强连通分量+缩点+权值更新）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hdu3639-（强连通分量-缩点-逆向思维）"><span class="nav-number">3.</span> <span class="nav-text">hdu3639 （强连通分量+缩点+逆向思维）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuangyaoqian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

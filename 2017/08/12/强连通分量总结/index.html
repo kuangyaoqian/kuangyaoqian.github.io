@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="图论,最短路,强连通分量," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="做了一周的强连通分量的练习了，来总结一下！强连通分量是指有向图里的极大强连通子图，这句话里要注意的是只有在有向图里的才叫强连通分量，在无向图里的叫连通分量，对于一个强连通的图，强连通分量就是自己本身，但是对于非强连通的有向图，强连通分量就不止一个了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强连通分量总结">
+<meta property="og:url" content="http://yoursite.com/2017/08/12/强连通分量总结/index.html">
+<meta property="og:site_name" content="梦想的博客">
+<meta property="og:description" content="做了一周的强连通分量的练习了，来总结一下！强连通分量是指有向图里的极大强连通子图，这句话里要注意的是只有在有向图里的才叫强连通分量，在无向图里的叫连通分量，对于一个强连通的图，强连通分量就是自己本身，但是对于非强连通的有向图，强连通分量就不止一个了。">
+<meta property="og:image" content="https://github.com/kuangyaoqian/kyqgittest/blob/master/6.png?raw=true">
+<meta property="og:image" content="https://github.com/kuangyaoqian/kyqgittest/blob/master/7.png?raw=true">
+<meta property="og:updated_time" content="2017-08-12T02:48:50.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强连通分量总结">
+<meta name="twitter:description" content="做了一周的强连通分量的练习了，来总结一下！强连通分量是指有向图里的极大强连通子图，这句话里要注意的是只有在有向图里的才叫强连通分量，在无向图里的叫连通分量，对于一个强连通的图，强连通分量就是自己本身，但是对于非强连通的有向图，强连通分量就不止一个了。">
+<meta name="twitter:image" content="https://github.com/kuangyaoqian/kyqgittest/blob/master/6.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/12/强连通分量总结/"/>
+
+
+
+
+
+  <title> 强连通分量总结 | 梦想的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梦想的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪怕每天只有一点的进步都值得去为之努力</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/强连通分量总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuangyaoqian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦想的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                强连通分量总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T09:44:54+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/图论/强连通分量/" itemprop="url" rel="index">
+                    <span itemprop="name">强连通分量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>做了一周的强连通分量的练习了，来总结一下！<br>强连通分量是指有向图里的极大强连通子图，这句话里要注意的是只有在有向图里的才叫强连通分量，在无向图里的叫连通分量，对于一个强连通的图，强连通分量就是自己本身，但是对于非强连通的有向图，强连通分量就不止一个了。<br><a id="more"></a><br>比如下面这个有向图<br><img src="https://github.com/kuangyaoqian/kyqgittest/blob/master/6.png?raw=true" alt=""><br>它有3个强连通分量：分别是{1,2,3,4}，{5}，{6}<br>求强连通分量有三个算法：Kosaraju、Tanjar和Gabow算法，真是巧了，三个算法我都不会读！但是这并不影响我学习算法的热情。</p>
+<h3 id="Kosaraju算法"><a href="#Kosaraju算法" class="headerlink" title="Kosaraju算法"></a>Kosaraju算法</h3><p>这个算法由两个dfs组成，这和我一开始的想法差不多吧。比如求无向图的连通分量时，就是直接一遍dfs就可以求出一个强连通分量，那是因为无向图相当于双向的有向图。所以我一开始就会想我能不能通过两次dfs求出强连通分量，从头到尾扫一遍，再从尾到头扫一遍。<br>结果这个Kosaraju算法就是这样的，但是从尾到头dfs时是不能随便dfs的，而是有一定的序列。<br>第一个dfs：<br>把所有的顶点都进行一次dfs，形成一棵棵的搜索树，然后再用一个数组来记录每个点开始回溯的时间，num[i]=j就表示第j个点的回溯时间是i，这个num就是传说中的逆后序。这个序列在第二个dfs里是非常有用的<br>第二个dfs：<br>第二个dfs是对反图进行dfs的，所以在进行dfs之前要先求出来它的反图，然后再进行dfs，这次的dfs每完成一次就会得到一个强连通分量，这里有和无向图的dfs是一样的，每搜完一个dfs就是一个联通分量。但是这次的dfs从哪个点开始是有讲究的，<br>这就用到了我刚刚求出来的num数组了，从回溯时间最长的点开始进行dfs，那就是从n到1还是进行dfs操作。每次遍历完了的点就删除，这里用vis数组标记就好了，这样一次dfs下来就是一个强连通分量。遍历完所有点后就可以把强连通分量找完。<br>这个算法的时间复杂度是O（v+e），空间复杂度也是O（v+e）。<br>代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=1000;</div><div class="line">bool vis[M];</div><div class="line">int head[M],num[M],head2[M],scc[M];</div><div class="line">int n,m,k,k2;</div><div class="line">struct node</div><div class="line">&#123;</div><div class="line">    int to,next,w;</div><div class="line">&#125;;</div><div class="line">node Map[M],Map2[M];</div><div class="line">void add(int x,int y,int z)</div><div class="line">&#123;</div><div class="line">    Map[k].to=y;</div><div class="line">    Map[k].w=z;</div><div class="line">    Map[k].next=head[x];</div><div class="line">    head[x]=k++;</div><div class="line">&#125;</div><div class="line">void add2(int x,int y,int z)</div><div class="line">&#123;</div><div class="line">    Map2[k2].to=y;</div><div class="line">    Map2[k2].w=z;</div><div class="line">    Map2[k2].next=head2[x];</div><div class="line">    head2[x]=k2++;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void dfsone(int cur,int &amp;sig)   //第一次遍历，求出num数组</div><div class="line">&#123;</div><div class="line">    vis[cur]=<span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(int i=head[cur];i!=0;i=Map[i].next)&#123;</div><div class="line">        <span class="keyword">if</span>(!vis[Map[i].to])</div><div class="line">            dfsone(Map[i].to,sig);</div><div class="line">    &#125;</div><div class="line">    num[++sig]=cur;</div><div class="line">&#125;</div><div class="line">void dfstwo(int cur,int sig)   //遍历反图</div><div class="line">&#123;</div><div class="line">    vis[cur]=<span class="literal">true</span>;</div><div class="line">    scc[cur]=sig;         //将cur点染色，同一强连通分量里的sig是一样的</div><div class="line">    <span class="keyword">for</span>(int i=head2[cur];i!=0;i=Map2[i].next)&#123;</div><div class="line">        <span class="keyword">if</span>(!vis[Map2[i].to])</div><div class="line">            dfstwo(Map2[i].to,sig);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">Kosaraju</span></span>()</div><div class="line">&#123;</div><div class="line">    int sig=0;</div><div class="line">    memset(vis,<span class="literal">false</span>,sizeof(vis));</div><div class="line">    memset(num,0,sizeof(num));</div><div class="line">    memset(scc,0,sizeof(scc));</div><div class="line">    <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;</div><div class="line">        <span class="keyword">if</span>(!vis[i])</div><div class="line">            dfsone(i,sig);    //第一次dfs</div><div class="line">    &#125;</div><div class="line">    sig=1;</div><div class="line">    memset(vis,<span class="literal">false</span>,sizeof(vis));</div><div class="line">    <span class="keyword">for</span>(int i=n;i&gt;=1;i--)&#123;</div><div class="line">        <span class="keyword">if</span>(!vis[num[i]])</div><div class="line">            dfstwo(num[i],sig++);    //第二次dfs</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> sig-1;     //表示有向图中强连通分量的个数</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int x,y,z;</div><div class="line">    scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">    k=k2=1;</div><div class="line">    memset(head,0,sizeof(head));</div><div class="line">    memset(head2,0,sizeof(head2));</div><div class="line">    <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">        scanf(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</div><div class="line">        z=1;</div><div class="line">        add(x,y,z);</div><div class="line">        add2(y,x,z); //建一个反图</div><div class="line">    &#125;</div><div class="line">    cout&lt;&lt;Kosaraju()&lt;&lt;endl;</div><div class="line">    <span class="keyword">for</span>(int i=1;i&lt;=n;i++)</div><div class="line">        cout&lt;&lt;i&lt;&lt;<span class="string">" "</span>&lt;&lt;scc[i]&lt;&lt;endl;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Tanjar算法"><a href="#Tanjar算法" class="headerlink" title="Tanjar算法"></a>Tanjar算法</h3><p>这个算法和上面那个算法比较最大的改进就是，Tarjan算法只有一个dfs，并且不用求反图，所以写起来会更加的简介些。<br>Tanjar算法的依据是这样的，对一个有向图进行深度优先搜索时，可以得到一颗深度优先搜索树，而我们要求的强连通分量就在这颗搜索树里，也就是说是搜索树的子树，所以只要确定了每个强连通分量的根就可根据根从树的底层开始一个个的取出强连通分量。<br>它需要维护两个数组dfn和low数组，dfn很好理解就是dfs遍历到第i个点的时间度，low数组是它能追溯到的最小的时间度(也就是说它能连通的点的最小的时间度，一开始等于dfn)。当dfn[i]==low[i]时，i就是一个强连通分量的根。还需要用到一个栈来存储每次dfs访问到的点，当找到根时就把栈顶到根的元素都出栈组成一个强连通分量。<br>模板如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;stack&gt;</span></div><div class="line"><span class="comment">#include&lt;vector&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=10000;</div><div class="line">vector&lt;int&gt; G[M];</div><div class="line">int num,index;</div><div class="line">bool instack[M];</div><div class="line">int dfn[M],low[M],make[M];</div><div class="line">stack&lt;int&gt; s;</div><div class="line">void tarjan(int u)</div><div class="line">&#123;</div><div class="line">    int v;</div><div class="line">    s.push(u);</div><div class="line">    instack[u]=<span class="literal">true</span>;   //入栈标记</div><div class="line">    dfn[u]=low[u]=++index;        //index=0;所以是++index</div><div class="line">    <span class="keyword">for</span>(int i=0;i&lt;G[u].size();i++)&#123;</div><div class="line">        v=G[u][i];</div><div class="line">        <span class="keyword">if</span>(!dfn[v])&#123;      //表示v点不在栈里且没有被访问过，因为dfn的初始值是0</div><div class="line">            tarjan(v);</div><div class="line">            low[u]=min(low[u],low[v]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(instack[v])&#123;          //表示v点在栈里</div><div class="line">            low[u]=min(dfn[v],low[u]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(dfn[u]==low[u])&#123;      //当完成了u这个点的dfs时就判断dfn和low是否相同</div><div class="line">        num++;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            v=s.top();</div><div class="line">            make[v]=num;</div><div class="line">            s.pop();</div><div class="line">            instack[v]=<span class="literal">false</span>;     //出栈记得还原标记</div><div class="line">        &#125;<span class="keyword">while</span>(v!=u);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int n,m,a,b;</div><div class="line">    <span class="keyword">while</span>(~scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m))&#123;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">            G[a].push_back(b);</div><div class="line">        &#125;</div><div class="line">        memset(instack,<span class="literal">false</span>,sizeof(instack));</div><div class="line">        memset(dfn,0,sizeof(dfn));</div><div class="line">        memset(low,0,sizeof(low));</div><div class="line">        memset(make,0,sizeof(make));</div><div class="line">        index=num=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            <span class="keyword">if</span>(!dfn[i])</div><div class="line">                tarjan(i);</div><div class="line">        &#125;</div><div class="line">        cout&lt;&lt;num&lt;&lt;endl;</div><div class="line">        <span class="keyword">for</span>(int i=0;i&lt;M;i++)</div><div class="line">           G[i].clear();</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Gabow算法"><a href="#Gabow算法" class="headerlink" title="Gabow算法"></a>Gabow算法</h3><p>Gabow算法个Tarjan算法是一样的原理，只不把Tarjan算法里的low数组用以个栈来替换了。用的多的还是属Tarjan算法。<br>Gabow算法是Tarjan算法的另一种实现方式，用两个堆栈来实现的，第一个堆栈和Tarjan算法一样的，第二个栈相当于low数组的功能，这个栈顶的那个元素就是告诉第一个栈把你栈里从栈顶到我这个数的所有数都输出来，这是一个强连通分量。<br>当然这是有条件的，想想low数组为什么会更新的越来越小呢，就是因为出现了环，所以才更新的，所以在第二个栈里，遇到了环就把所有组成环的点都从2栈里出栈。那2栈怎么知道我什么时候通知1栈呢？当2栈的栈顶等于当前点的时候就可以通知1栈了。<br>模板入下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include&lt;string.h&gt;</span></div><div class="line"><span class="comment">#include&lt;stack&gt;</span></div><div class="line"><span class="comment">#include&lt;algorithm&gt;</span></div><div class="line">using namespace std;</div><div class="line">const int M=10000;</div><div class="line">int head[M],k;</div><div class="line">int index,num,dfn[M],belg[M];</div><div class="line">stack&lt;int&gt; st1,st2;</div><div class="line">struct node</div><div class="line">&#123;</div><div class="line">    int to,w,next;</div><div class="line">&#125;;</div><div class="line">node G[M];</div><div class="line">void add(int x,int y,int z)</div><div class="line">&#123;</div><div class="line">    G[k].to=y;</div><div class="line">    G[k].w=z;</div><div class="line">    G[k].next=head[x];</div><div class="line">    head[x]=k++;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Garbow(int u)</div><div class="line">&#123;</div><div class="line">    int v;</div><div class="line">    st1.push(u);</div><div class="line">    st2.push(u);</div><div class="line">    dfn[u]=++index;</div><div class="line">    <span class="keyword">for</span>(int i=head[u];i!=0;i=G[i].next)&#123;</div><div class="line">        v=G[i].to;</div><div class="line">        <span class="keyword">if</span>(!dfn[v])&#123;</div><div class="line">            Garbow(v);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!belg[v])&#123;</div><div class="line">            <span class="keyword">while</span>(dfn[v]&lt;dfn[st2.top()])        //遇到了环，把点出栈2</div><div class="line">                st2.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(st2.top()==u)&#123;      //找到一个强连通分量的根，开始从1栈出栈</div><div class="line">        num++;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            v=st1.top();</div><div class="line">            belg[v]=num;</div><div class="line">            st1.pop();</div><div class="line">        &#125;<span class="keyword">while</span>(st2.top()!=v);       </div><div class="line">        st2.pop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()</div><div class="line">&#123;</div><div class="line">    int n,m,x,z,y;</div><div class="line">    <span class="keyword">while</span>(~scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;m))&#123;</div><div class="line">        k=1;</div><div class="line">        memset(head,0,sizeof(head));</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=m;i++)&#123;</div><div class="line">            scanf(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</div><div class="line">            z=1;</div><div class="line">            add(x,y,z);</div><div class="line">        &#125;</div><div class="line">        memset(dfn,0,sizeof(dfn));</div><div class="line">        memset(belg,0,sizeof(belg));</div><div class="line">        index=num=0;</div><div class="line">        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            <span class="keyword">if</span>(!dfn[i])</div><div class="line">                Garbow(i);</div><div class="line">        &#125;</div><div class="line">        cout&lt;&lt;num&lt;&lt;endl;</div><div class="line">//        <span class="keyword">for</span>(int i=1;i&lt;=n;i++)</div><div class="line">//            cout&lt;&lt;i&lt;&lt;<span class="string">" "</span>&lt;&lt;belg[i]&lt;&lt;endl;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是我在杭电1269的提交，用三种算法的时间，从上到下分别是Gabow，Tarjan，Kosaraju算法，虽然他们的时间复杂度都是O（n+m），但是可以很明显的看出来时间上还是有进步的。<br><img src="https://github.com/kuangyaoqian/kyqgittest/blob/master/7.png?raw=true" alt=""></p>
+<p>转载请注明出处！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+            <a href="/tags/最短路/" rel="tag"># 最短路</a>
+          
+            <a href="/tags/强连通分量/" rel="tag"># 强连通分量</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/27/最短路练习题（三）/" rel="next" title="最短路练习（三）">
+                <i class="fa fa-chevron-left"></i> 最短路练习（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/12/强连通分量练习/" rel="prev" title="强连通分量练习">
+                强连通分量练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://p2.so.qhimgs1.com/bdr/_240_/t01272a7dda476ed78e.jpg"
+               alt="kuangyaoqian" />
+          <p class="site-author-name" itemprop="name">kuangyaoqian</p>
+           
+              <p class="site-description motion-element" itemprop="description">哪怕每天只有一点的进步都值得去为之努力</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kosaraju算法"><span class="nav-number">1.</span> <span class="nav-text">Kosaraju算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tanjar算法"><span class="nav-number">2.</span> <span class="nav-text">Tanjar算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gabow算法"><span class="nav-number">3.</span> <span class="nav-text">Gabow算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuangyaoqian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
